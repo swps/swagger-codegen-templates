@@ -1,0 +1,58 @@
+package {{package}};
+
+import {{modelPackage}}.*;
+import {{invokerPackage}}.common.FallbackCallback;
+
+import com.google.common.base.Preconditions;
+import com.netflix.hystrix.HystrixCommand;
+import com.netflix.hystrix.HystrixCommand.Setter;
+
+import javax.annotation.Nullable;
+
+
+public class {{classname}}HystrixDelegator implements {{classname}} {
+    private final {{className}}.Resources delegate;
+    private final Setter commandSetter;
+
+    public {{className}}HystrixDelegator({{className}}.Resources delegate, Setter commandSetter) {
+        Preconditions.checkNotNull(delegate, "Resource delegate");
+        Preconditions.checkNotNull(commandSetter, "Hystrix command setter");
+
+        this.delegate = delegate;
+        this.commandSetter = commandSetter;
+    }
+
+
+    {{#operations}}
+    {{#operation}}
+    public {{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}void {{/returnType}} {{nickname}} ({{#allParams}}{{{dataType}}} {{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}}) {
+        {{#returnType}}return {{/returnType}} {{nickname}} (null {{#allParams}}, {{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}});
+    }
+
+    public {{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}void {{/returnType}} {{nickname}} (final @Nullable FallbackCallback<{{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}Void {{/returnType}}> fallbackCallback{{#allParams}}, final {{{dataType}}} {{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}}) {
+
+        final HystrixCommand<{{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}Void{{/returnType}}> command = new HystrixCommand<{{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}Void {{/returnType}}>(commandSetter) {
+            @Override
+            protected {{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}Void {{/returnType}} run() throws Exception {
+                {{#returnType}}return {{/returnType}}delegate.{{nickname}}({{#allParams}}{{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}});
+                {{^returnType}}return null;{{/returnType}}
+            }
+
+            @Override
+            protected {{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}Void {{/returnType}} getFallback() {
+                if(fallbackCallback == null) {
+                    return super.getFallback();
+                } else {
+                    return fallbackCallback.doFallback();
+                }
+            }
+        };
+
+        {{#returnType}}return {{/returnType}}command.execute();
+    }
+
+
+    {{/operation}}
+{{/operations}}
+
+}

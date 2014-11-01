@@ -1,0 +1,49 @@
+package {{package}};
+
+import {{invokerPackage}}.common.FallbackCallback;
+
+import feign.Headers;
+import feign.RequestLine;
+
+import javax.annotation.Nullable;
+import javax.inject.Named;
+
+{{#imports}}import {{import}};
+{{/imports}}
+
+/**
+ * {{name}}
+ */
+{{#operations}}
+public interface {{classname}} {
+
+  {{#operation}}
+  {{#description}}
+  /**
+      {{description}}
+  */
+  {{/description}}
+  public {{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}void {{/returnType}} {{nickname}} ({{#allParams}}{{{dataType}}} {{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}}) ;
+  public {{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}void {{/returnType}} {{nickname}} (@Nullable FallbackCallback<{{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}Void{{/returnType}}> fallbackCallback{{#allParams}}, {{{dataType}}} {{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}}) ;
+
+  {{/operation}}
+
+  interface Resources {
+
+    {{#operation}}
+    {{#errorList}} // error info - code: {{code}} reason: "{{reason}}" model: {{#responseModel}}{{responseModel}}
+    {{/responseModel}}{{^responseModel}}<none>
+    {{/responseModel}}
+    {{/errorList}}
+    @RequestLine("{{httpMethod}} {{path}}")
+    {{#post}}@Headers({"Accept: application/json", "Content-Type: application/json"}) // TODO: template should read real Content-Type and Accept types
+    {{/post}}
+    {{#put}}@Headers({"Accept: application/json", "Content-Type: application/json"})  // TODO: template should read real Content-Type and Accept types
+    {{/put}}
+    public {{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}void {{/returnType}} {{nickname}} ({{#allParams}}{{#pathParameter}}@Named("{{paramName}}") {{/pathParameter}}{{{dataType}}} {{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}}) ;
+
+    {{/operation}}
+
+  }
+}
+{{/operations}}

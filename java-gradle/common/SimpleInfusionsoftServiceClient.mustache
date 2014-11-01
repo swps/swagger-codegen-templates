@@ -1,0 +1,41 @@
+package {{invokerPackage}}.common;
+
+import com.google.common.base.Preconditions;
+import {{invokerPackage}}.common.authentication.FeignRequestAuthenticationStrategy;
+import com.netflix.hystrix.Hystrix;
+
+public class SimpleInfusionsoftServiceClient implements InfusionsoftServiceClient {
+    private final FeignRequestAuthenticationStrategy authStrategy;
+    private final ServiceEndpoint endpoint;
+    private final String serviceName;
+
+    public SimpleInfusionsoftServiceClient(FeignRequestAuthenticationStrategy authStrategy, ServiceEndpoint endpoint, String targetServiceName) {
+        Preconditions.checkNotNull(authStrategy, "auth strategy");
+        Preconditions.checkNotNull(endpoint, "service endpoint");
+        Preconditions.checkNotNull(targetServiceName, "target service name");
+
+        this.authStrategy = authStrategy;
+        this.endpoint = endpoint;
+        this.serviceName = targetServiceName;
+    }
+
+    @Override
+    public FeignRequestAuthenticationStrategy getFeignAuthenticationStrategy() {
+        return authStrategy;
+    }
+
+    @Override
+    public ServiceEndpoint getFieldManualServiceEndpoint() {
+        return endpoint;
+    }
+
+    @Override
+    public String getTargetServiceName() {
+        return serviceName;
+    }
+
+    @Override
+    public void reset() {
+        Hystrix.reset();
+    }
+}

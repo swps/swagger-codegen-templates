@@ -1,0 +1,18 @@
+package {{invokerPackage}}.common.authentication;
+
+import feign.Feign.Builder;
+import feign.auth.BasicAuthRequestInterceptor;
+
+public class BasicAuthFeignRequestAuthenticationStrategy implements FeignRequestAuthenticationStrategy {
+    private final BasicAuthCredentials creds;
+
+    public BasicAuthFeignRequestAuthenticationStrategy(BasicAuthCredentials creds) {
+        this.creds = creds;
+    }
+
+    @Override
+    public Builder requestInterceptor(Builder feign) {
+        return feign.requestInterceptor(new BasicAuthRequestInterceptor(creds.getUsername(), creds.getPassword()));
+    }
+
+}

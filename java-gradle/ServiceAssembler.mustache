@@ -1,0 +1,68 @@
+package {{apiPackage}};
+
+import {{invokerPackage}}.{{facadeClassName}};
+import {{invokerPackage}}.common.InfusionsoftServiceClient;
+import {{invokerPackage}}.common.ServiceLocation;
+import {{invokerPackage}}.common.authentication.FeignRequestAuthenticationStrategy;
+import com.netflix.hystrix.HystrixCommand.Setter;
+import com.netflix.hystrix.HystrixCommandGroupKey;
+import com.netflix.hystrix.HystrixCommandKey;
+import com.netflix.hystrix.HystrixThreadPoolKey;
+import feign.Feign;
+import feign.jackson.JacksonDecoder;
+import feign.jackson.JacksonEncoder;
+
+
+public class {{facadeClassName}}Assembler {
+
+    private final InfusionsoftServiceClient serviceClient;
+
+    public {{facadeClassName}}Assembler(InfusionsoftServiceClient serviceClient) {
+        this.serviceClient = serviceClient;
+    }
+
+    {{#apiInfo}}
+    {{#apis}}
+    {{className}} hystrix{{className}}(){
+
+            final FeignRequestAuthenticationStrategy auth = serviceClient.getFeignAuthenticationStrategy();
+            final ServiceLocation serviceLocation = serviceClient.getFieldManualServiceEndpoint();
+
+            final {{className}}.Resources delegate = auth.requestInterceptor(Feign.builder())
+                .decoder(new JacksonDecoder())
+                .encoder(new JacksonEncoder())
+                .target({{className}}.Resources.class, serviceLocation.getEndpointUri().toString());
+
+            final HystrixCommandGroupKey group = HystrixCommandGroupKey.Factory.asKey(serviceClient.getTargetServiceName());
+            final HystrixThreadPoolKey threadPool = HystrixThreadPoolKey.Factory.asKey(serviceClient.getTargetServiceName());
+            final HystrixCommandKey commandKey = HystrixCommandKey.Factory.asKey({{className}}.class.getSimpleName());
+
+            final Setter tracksSetter = Setter.withGroupKey(group)
+                .andThreadPoolKey(threadPool)
+                .andCommandKey(commandKey);
+
+            return new {{className}}HystrixDelegator(delegate, tracksSetter);
+    }
+    {{/apis}}
+    {{/apiInfo}}
+
+
+    public {{facadeClassName}} create{{facadeClassName}}(){
+        {{facadeClassName}}.Builder builder = {{facadeClassName}}.builder();
+
+        {{#apiInfo}}
+        {{#apis}}
+                builder.with{{className}}(hystrix{{className}}());
+        {{/apis}}
+        {{/apiInfo}}
+
+        return builder.build();
+    }
+
+    public static {{facadeClassName}} configureService(InfusionsoftServiceClient clientInfo){
+        final {{facadeClassName}}Configuration configuration = new {{facadeClassName}}Configuration(clientInfo);
+        return configuration.create{{facadeClassName}}();
+    }
+
+
+}

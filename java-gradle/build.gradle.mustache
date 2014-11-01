@@ -1,0 +1,24 @@
+buildscript {
+    apply from: "gradle/buildscript.gradle", to: buildscript
+}
+
+group = "{{groupId}}"
+description = "{{serviceDescription}}"
+
+apply from: "gradle/convention.gradle"
+apply from: "gradle/codequality.gradle"
+apply from: "gradle/release.gradle"
+
+dependencies {
+    compile 'com.google.guava:guava'
+
+    // TODO: these versions should live in the platform BOM
+    compile "com.netflix.feign:feign-jackson:6.1.3"
+    compile "com.netflix.hystrix:hystrix-core:1.3.18"
+
+//    compile "org.springframework:spring-web"
+//    compile "org.springframework:spring-core"
+}
+
+// This is to prevent Spring Boot from making the SDK an executable jar.
+bootRepackage.enabled = false

@@ -1,0 +1,53 @@
+package {{invokerPackage}};
+
+import {{apiPackage}}.*;
+
+/**
+* A service facade representing the endpoints offered.
+*/
+public class {{facadeClassName}} {
+    public static final String INFUSIONSOFT_SERVICE_NAME = "{{serviceName}}";
+
+    {{#apiInfo}}
+    {{#apis}}private {{className}} {{classVarName}};
+    {{/apis}}
+    {{/apiInfo}}
+
+    private {{facadeClassName}}() {
+    }
+
+
+    {{#apiInfo}}
+    {{#apis}}/**
+     * @return {@code {{className}} endpoint abstraction.
+     */
+    public {{className}} get{{className}}(){
+        return {{classVarName}};
+    }
+    {{/apis}}
+    {{/apiInfo}}
+
+
+    public class Builder{
+        private final {{facadeClassName}} building = new {{facadeClassName}}();
+        private Builder(){}
+
+        {{#apiInfo}}
+        {{#apis}}
+        private Builder with{{className}}({{className}} {{classVarName}}){
+            building.{{classVarName}} = {{classVarName}};
+            return this;
+        }
+        {{/apis}}
+        {{/apiInfo}}
+
+        public {{facadeClassName}} build(){
+            return building;
+        }
+    }
+
+    public static Builder builder(){
+        return new Builder();
+    }
+
+}
