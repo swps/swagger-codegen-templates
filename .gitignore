@@ -1,0 +1,15 @@
+java-gradle-codegen
+
+*.swp
+
+.idea/
+.gradle/
+build/
+target/
+classes/
+out/
+*.iml
+*.ipr
+*.iwl
+
+ignore
