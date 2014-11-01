@@ -2,9 +2,6 @@ import com.wordnik.swagger.codegen.BasicJavaGenerator
 
 object IsftServiceClient extends BasicJavaGenerator {
   def main(args: Array[String]) = {
-
-    println("API Template Files: " + apiTemplateFiles)
-
     generateClient(args)
   }
 
