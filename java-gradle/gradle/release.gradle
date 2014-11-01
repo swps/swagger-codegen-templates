@@ -1,0 +1,55 @@
+apply plugin: 'maven'
+
+configurations {
+    def repositoryUsername = project.hasProperty("repositoryUsername") ? project.repositoryUsername : ''
+    def repositoryPassword = project.hasProperty("repositoryPassword") ? project.repositoryPassword : ''
+    def repositoryUrl = project.hasProperty("repositoryUrl") ? project.repositoryUrl : ''
+
+    install {
+        repositories {
+            mavenInstaller {
+                repositories {
+                    mavenLocal()
+                }
+                pom.project {
+                    dependencyManagement {
+                        dependencies {
+                            dependency {
+                                groupId = 'com.infusionsoft.pancakes'
+                                artifactId = 'infusionsoft-platform-bom'
+                                version = pancakesVersion
+                                scope = 'import'
+                                type = 'pom'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                repository (url: repositoryUrl) {
+                    authentication(userName: repositoryUsername, password: repositoryPassword)
+                }
+                pom.project {
+                    dependencyManagement {
+                        dependencies {
+                            dependency {
+                                groupId = 'com.infusionsoft.pancakes'
+                                artifactId = 'infusionsoft-platform-bom'
+                                version = pancakesVersion
+                                scope = 'import'
+                                type = 'pom'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+task release(dependsOn: ['build', 'sonarRunner', 'uploadArchives']) << {}

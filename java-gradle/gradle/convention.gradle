@@ -1,0 +1,66 @@
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+apply plugin: 'java'
+apply plugin: 'build-version'
+
+configurations {
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
+}
+
+buildVersion {
+    releaseTagPattern = "^release-${project.name}-(\\d+\\.\\d+\\.\\d+)"
+    releaseTagIfNone = "release-${project.name}-0.0.0"
+    matchGroup = "\$1"
+    versionSplitter = "."
+    snapshotSuffix = "-BATTER"
+    releaseSuffix = ".RELEASE"
+}
+
+version = buildVersion.version
+
+jar {
+    manifest {
+        attributes("Implementation-Version": project.version)
+        attributes("Pancake-Implementation": pancakesVersion)
+        attributes("Build-Timestamp": new Date().toGMTString())
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+idea {
+    module {
+        inheritOutputDirs = false
+        outputDir = file("$buildDir/classes/main/")
+    }
+}
+
+repositories {
+    maven { url "https://scm.infusiontest.com/nexus/content/groups/infusionsoft" }
+    jcenter()
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    versionManagement "com.infusionsoft.pancakes:infusionsoft-platform-bom:${pancakesVersion}@properties"
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.0'
+}
