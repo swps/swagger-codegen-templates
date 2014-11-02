@@ -8,7 +8,7 @@ import {{invokerPackage}}.common.authentication.FeignRequestAuthenticationStrate
 public interface InfusionsoftServiceClient {
     public FeignRequestAuthenticationStrategy getFeignAuthenticationStrategy();
 
-    public ServiceEndpoint getFieldManualServiceEndpoint();
+    public ServiceLocation getServiceLocation();
 
     /**
      * This is largely used to determine the Hystrix ThreadPool to use.

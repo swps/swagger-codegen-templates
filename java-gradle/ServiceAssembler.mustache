@@ -26,7 +26,7 @@ public class {{facadeClassName}}Assembler {
     {{className}} hystrix{{className}}(){
 
             final FeignRequestAuthenticationStrategy auth = serviceClient.getFeignAuthenticationStrategy();
-            final ServiceLocation serviceLocation = serviceClient.getFieldManualServiceEndpoint();
+            final ServiceLocation serviceLocation = serviceClient.getServiceLocation();
 
             final {{className}}.Resources delegate = auth.requestInterceptor(Feign.builder())
                 .decoder(new JacksonDecoder())

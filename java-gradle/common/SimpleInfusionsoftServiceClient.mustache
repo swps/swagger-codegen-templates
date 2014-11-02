@@ -6,10 +6,10 @@ import com.netflix.hystrix.Hystrix;
 
 public class SimpleInfusionsoftServiceClient implements InfusionsoftServiceClient {
     private final FeignRequestAuthenticationStrategy authStrategy;
-    private final ServiceEndpoint endpoint;
+    private final ServiceLocation endpoint;
     private final String serviceName;
 
-    public SimpleInfusionsoftServiceClient(FeignRequestAuthenticationStrategy authStrategy, ServiceEndpoint endpoint, String targetServiceName) {
+    public SimpleInfusionsoftServiceClient(FeignRequestAuthenticationStrategy authStrategy, ServiceLocation endpoint, String targetServiceName) {
         Preconditions.checkNotNull(authStrategy, "auth strategy");
         Preconditions.checkNotNull(endpoint, "service endpoint");
         Preconditions.checkNotNull(targetServiceName, "target service name");
@@ -25,7 +25,7 @@ public class SimpleInfusionsoftServiceClient implements InfusionsoftServiceClien
     }
 
     @Override
-    public ServiceEndpoint getFieldManualServiceEndpoint() {
+    public ServiceLocation getServiceLocation() {
         return endpoint;
     }
 
