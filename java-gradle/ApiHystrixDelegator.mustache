@@ -26,10 +26,10 @@ public class {{classname}}HystrixDelegator implements {{classname}} {
     {{#operations}}
     {{#operation}}
     public {{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}void {{/returnType}} {{nickname}} ({{#allParams}}{{{dataType}}} {{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}}) {
-        {{#returnType}}return {{/returnType}} {{nickname}} (null {{#allParams}}, {{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}});
+        {{#returnType}}return {{/returnType}} {{nickname}} (null {{#allParams}}, {{paramName}}{{/allParams}});
     }
 
-    public {{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}void {{/returnType}} {{nickname}} (final @Nullable FallbackCallback<{{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}Void {{/returnType}}> fallbackCallback{{#allParams}}, final {{{dataType}}} {{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}}) {
+    public {{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}void {{/returnType}} {{nickname}} (final @Nullable FallbackCallback<{{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}Void {{/returnType}}> fallbackCallback{{#allParams}}, final {{{dataType}}} {{paramName}}{{/allParams}}) {
 
         final HystrixCommand<{{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}Void{{/returnType}}> command = new HystrixCommand<{{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}Void {{/returnType}}>(commandSetter) {
             @Override

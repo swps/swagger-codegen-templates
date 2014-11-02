@@ -24,7 +24,7 @@ public interface {{classname}} {
   */
   {{/description}}
   public {{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}void {{/returnType}} {{nickname}} ({{#allParams}}{{{dataType}}} {{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}}) ;
-  public {{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}void {{/returnType}} {{nickname}} (@Nullable FallbackCallback<{{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}Void{{/returnType}}> fallbackCallback{{#allParams}}, {{{dataType}}} {{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}}) ;
+  public {{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}void {{/returnType}} {{nickname}} (@Nullable FallbackCallback<{{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}Void{{/returnType}}> fallbackCallback{{#allParams}}, {{{dataType}}} {{paramName}}{{/allParams}}) ;
 
   {{/operation}}
 
