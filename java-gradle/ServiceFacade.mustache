@@ -19,7 +19,7 @@ public class {{facadeClassName}} {
 
     {{#apiInfo}}
     {{#apis}}/**
-     * @return {@code {{className}} endpoint abstraction.
+     * @return {@code {{className}} } endpoint abstraction.
      */
     public {{className}} get{{className}}(){
         return {{classVarName}};
@@ -28,13 +28,13 @@ public class {{facadeClassName}} {
     {{/apiInfo}}
 
 
-    public class Builder{
+    public static class Builder{
         private final {{facadeClassName}} building = new {{facadeClassName}}();
         private Builder(){}
 
         {{#apiInfo}}
         {{#apis}}
-        private Builder with{{className}}({{className}} {{classVarName}}){
+        public Builder with{{className}}({{className}} {{classVarName}}){
             building.{{classVarName}} = {{classVarName}};
             return this;
         }

@@ -60,8 +60,8 @@ public class {{facadeClassName}}Assembler {
     }
 
     public static {{facadeClassName}} configureService(InfusionsoftServiceClient clientInfo){
-        final {{facadeClassName}}Configuration configuration = new {{facadeClassName}}Configuration(clientInfo);
-        return configuration.create{{facadeClassName}}();
+        final {{facadeClassName}}Assembler assembler = new {{facadeClassName}}Assembler(clientInfo);
+        return assembler.create{{facadeClassName}}();
     }
 
 
