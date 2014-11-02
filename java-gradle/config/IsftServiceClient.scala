@@ -32,7 +32,7 @@ object IsftServiceClient extends BasicJavaGenerator {
    **/
   additionalParams ++= Map(
     "artifactId" -> "field-manual-service-java-client",
-    "artifactVersion" -> "1.0.0",
+    "artifactVersion" -> "2.0.0",
     "groupId" -> "com.infusionsoft",
     "pancakesVersion" -> "1.1.4.8",
     "pancakeFlavor" -> "infusionsoft-swagger-web-service-client-autogen"
