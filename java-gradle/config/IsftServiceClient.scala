@@ -10,20 +10,18 @@ object IsftServiceClient extends BasicJavaGenerator {
 
   // where to write generated code
   def destinationProjectDir = "/Users/wendel.schultz/development/projects/infusionso/developer-services/swagger-codegen-isft/java-gradle-codegen"
+//  def destinationProjectDir = "/Users/wendel.schultz/development/projects/infusionso/developer-services/trusted-email-service-java-client"
   override def destinationDir = destinationProjectDir + java.io.File.separator + "src" + java.io.File.separator + "main" + java.io.File.separator + "java"
 
   // api invoker package
-  override def invokerPackage = Some("com.infusionsoft.fieldmanual.client")
+  override def invokerPackage = Some("com.infusionsoft.trustedemail.client")
 
   // package for models
-  override def modelPackage = Some("com.infusionsoft.fieldmanual.client.model")
+  override def modelPackage = Some("com.infusionsoft.trustedemail.client.model")
 
   // package for api classes
-  override def apiPackage = Some("com.infusionsoft.fieldmanual.client.endpoints")
+  override def apiPackage = Some("com.infusionsoft.trustedemail.client.endpoints")
 
-
-  //  apiTemplateFiles += "api.ssp" -> ".java"
-  apiTemplateFiles += "ApiHystrixDelegator.mustache" -> "HystrixDelegator.java"
 
 
   /**
@@ -31,17 +29,24 @@ object IsftServiceClient extends BasicJavaGenerator {
    * additional params
    **/
   additionalParams ++= Map(
-    "artifactId" -> "field-manual-service-java-client",
-    "artifactVersion" -> "2.0.0",
+    "artifactId" -> "trusted-email-service-java-client",
+    "artifactVersion" -> "1.0.0",
     "groupId" -> "com.infusionsoft",
-    "pancakesVersion" -> "1.1.4.8",
+    "pancakesVersion" -> "1.1.6.0",
     "pancakeFlavor" -> "infusionsoft-swagger-web-service-client-autogen"
 
-    ,"serviceDescription" -> "A Simple Client for Field Manual Service - An Infusionsoft MicroApplication Client SDK"
-    ,"artifactsUrl" -> "https://scm.infusiontest.com/nexus/content/repositories/builds/com/infusionsoft/field-manual-service-client/"
-    ,"facadeClassName" -> "FieldManualService"
-    ,"serviceName" -> "Field Manual Service"
+    ,"serviceDescription" -> "A Simple Client for Trusted Email Service - An Infusionsoft MicroApplication Client SDK"
+    ,"artifactsUrl" -> "https://scm.infusiontest.com/nexus/content/repositories/builds/com/infusionsoft/trusted-email-service-java-client/"
+    ,"facadeClassName" -> "TrustedEmailService"
+    ,"serviceName" -> "Trusted Email Service"
   )
+
+
+
+
+  //  apiTemplateFiles += "api.ssp" -> ".java"
+  apiTemplateFiles += "ApiHystrixDelegator.mustache" -> "HystrixDelegator.java"
+
 
   // supporting classes
   override def supportingFiles =
