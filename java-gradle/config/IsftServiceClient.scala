@@ -6,10 +6,10 @@ object IsftServiceClient extends BasicJavaGenerator {
   }
 
   // location of templates
-  override def templateDir = "/Users/wendel.schultz/development/projects/infusionso/developer-services/swagger-codegen-isft/java-gradle"
+  override def templateDir = "/home/vivin/Projects/swagger-codegen-templates/java-gradle"
 
   // where to write generated code
-  def destinationProjectDir = "/Users/wendel.schultz/development/projects/infusionso/developer-services/swagger-codegen-isft/java-gradle-codegen"
+  def destinationProjectDir = "/home/vivin/Projects/swagger-codegen-templates/java-gradle-codegen"
 //  def destinationProjectDir = "/Users/wendel.schultz/development/projects/infusionso/developer-services/trusted-email-service-java-client"
   override def destinationDir = destinationProjectDir + java.io.File.separator + "src" + java.io.File.separator + "main" + java.io.File.separator + "java"
 

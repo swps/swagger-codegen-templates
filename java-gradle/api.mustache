@@ -36,15 +36,7 @@ public interface {{classname}} {
     {{/responseModel}}
     {{/errorList}}
     @RequestLine("{{httpMethod}} {{path}}")
-    {{#post}}@Headers({"Accept: application/json", "Content-Type: application/json"}) // TODO: template should read real Content-Type and Accept types
-    /*
-        Produces: {{#produces}}
-                       {{mediaType}}
-                  {{/produces}}
-        Consumes: {{#consumes}}
-                       {{mediaType}}
-                  {{/consumes}}
-    */
+    {{#post}}@Headers({"Accept: {{#produces}}{{mediaType}}{{#hasMore}}, {{/hasMore}}{{/produces}}", "Content-Type: {{#consumes}}{{mediaType}}{{#hasMore}}, {{/hasMore}}{{/consumes}}"}) 
     {{/post}}
     {{#put}}@Headers({"Accept: application/json", "Content-Type: application/json"})  // TODO: template should read real Content-Type and Accept types
     {{/put}}
