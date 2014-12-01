@@ -51,5 +51,5 @@ configurations {
         }
     }
 }
-
-task release(dependsOn: ['build', 'sonarRunner', 'uploadArchives']) << {}
+// completely generated code won't subject itself to code quality scrutiny.
+task release(dependsOn: ['build', 'uploadArchives']) << {}

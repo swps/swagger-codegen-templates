@@ -6,7 +6,8 @@ group = "{{groupId}}"
 description = "{{serviceDescription}}"
 
 apply from: "gradle/convention.gradle"
-apply from: "gradle/codequality.gradle"
+// completely generated code won't subject itself to code quality scrutiny.
+//apply from: "gradle/codequality.gradle"
 apply from: "gradle/release.gradle"
 
 dependencies {
