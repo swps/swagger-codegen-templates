@@ -22,7 +22,7 @@ public class {{facadeClassName}} {
      * @return {@code {{className}} } endpoint abstraction.
      */
     public {{className}} get{{className}}(){
-        return {{classVarName}};
+        return {{instanceVarName}};
     }
     {{/apis}}
     {{/apiInfo}}
@@ -34,8 +34,8 @@ public class {{facadeClassName}} {
 
         {{#apiInfo}}
         {{#apis}}
-        public Builder with{{className}}({{className}} {{classVarName}}){
-            building.{{classVarName}} = {{classVarName}};
+        public Builder with{{className}}({{className}} {{instanceVarName}}){
+            building.{{instanceVarName}} = {{instanceVarName}};
             return this;
         }
         {{/apis}}
