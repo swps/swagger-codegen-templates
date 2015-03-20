@@ -1,26 +1,28 @@
 import com.wordnik.swagger.codegen.BasicJavaGenerator
 
+/**
+  * change attributes in this class to generate your service's SDK.
+  */
 object IsftServiceClient extends BasicJavaGenerator {
   def main(args: Array[String]) = {
     generateClient(args)
   }
 
   // location of templates
-  override def templateDir = "/home/vivin/Projects/swagger-codegen-templates/java-gradle"
+  override def templateDir = "/Users/wendel.schultz/development/infusionsoft/developer-services/swagger-codegen-templates/java-gradle"
 
   // where to write generated code
-  def destinationProjectDir = "/home/vivin/Projects/swagger-codegen-templates/java-gradle-codegen"
-//  def destinationProjectDir = "/Users/wendel.schultz/development/projects/infusionso/developer-services/trusted-email-service-java-client"
+  def destinationProjectDir = "/Users/wendel.schultz/development/infusionsoft/developer-services/simple-sample-service-java-client"
   override def destinationDir = destinationProjectDir + java.io.File.separator + "src" + java.io.File.separator + "main" + java.io.File.separator + "java"
 
   // api invoker package
-  override def invokerPackage = Some("com.infusionsoft.trustedemail.client")
+  override def invokerPackage = Some("com.infusionsoft.sampleservice.client")
 
   // package for models
-  override def modelPackage = Some("com.infusionsoft.trustedemail.client.model")
+  override def modelPackage = Some("com.infusionsoft.sampleservice.client.model")
 
   // package for api classes
-  override def apiPackage = Some("com.infusionsoft.trustedemail.client.endpoints")
+  override def apiPackage = Some("com.infusionsoft.sampleservice.client.endpoints")
 
 
 
@@ -29,19 +31,23 @@ object IsftServiceClient extends BasicJavaGenerator {
    * additional params
    **/
   additionalParams ++= Map(
-    "artifactId" -> "trusted-email-service-java-client",
+    "artifactId" -> "simple-sample-service-java-client",
     "artifactVersion" -> "1.0.0",
     "groupId" -> "com.infusionsoft",
-    "pancakesVersion" -> "1.1.6.0",
+    "pancakesVersion" -> "1.1.6.19",
     "pancakeFlavor" -> "infusionsoft-swagger-web-service-client-autogen"
 
-    ,"serviceDescription" -> "A Simple Client for Trusted Email Service - An Infusionsoft MicroApplication Client SDK"
+    ,"serviceDescription" -> "A Simple Client for Simple Sample Service - An Infusionsoft MicroApplication Client SDK"
     ,"artifactsUrl" -> "https://scm.infusiontest.com/nexus/content/repositories/builds/com/infusionsoft/trusted-email-service-java-client/"
-    ,"facadeClassName" -> "TrustedEmailService"
-    ,"serviceName" -> "Trusted Email Service"
+    ,"facadeClassName" -> "SimpleSampleService"
+    ,"serviceName" -> "Simpmle Sample Service"
   )
 
 
+
+  /**
+   * You should not need to further change/customize this configuration below.
+   */
 
 
   //  apiTemplateFiles += "api.ssp" -> ".java"
