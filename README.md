@@ -1,6 +1,6 @@
 swagger-codegen-templates
 =========================
-Prerequisite to this is to have scala and java installed on your host.
+Prerequisite to this is to have (scala)[http://www.scala-lang.org/download/] and java installed on your host.  Scala needs to be on your path as well.
 
 To generate java clients to swagger-enabled APIs, 
 1. clone this project and (a small modification to swagger-codegen)[https://github.com/swps/swagger-codegen]. Build the codegen project (sbt assembly)
