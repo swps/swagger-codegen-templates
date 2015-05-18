@@ -43,7 +43,7 @@ if [ -d $targetFolder ]; then
 fi
 
 
-if [ -d $targetFolder ]; then
+if [ -e "$targetFolder/*" ]; then
 
           echo "Destination folder for generated SDK is not empty.  Aborting."
           echo
