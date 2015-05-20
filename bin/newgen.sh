@@ -16,6 +16,11 @@ fi
 pwd=`pwd`
 pushd $pwd
 
+case "x$1" in
+  "x") serviceLocation="http://localhost:8080/api-docs" ;;
+  *)   serviceLocation=$1                               ;;
+esac
+
 cd $swaggerCodegen
 
 
@@ -51,6 +56,9 @@ if [ -e "$targetFolder/*" ]; then
 
 fi
 
+echo
+echo "Creating SDK for service $serviceLocation at $targetFolder"
+echo
 
 cmd="./bin/runscala.sh $pwd/java-gradle/config/IsftServiceClient.scala http://localhost:8080/api-docs"
 rc=eval $cmd
