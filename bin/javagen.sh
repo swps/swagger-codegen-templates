@@ -63,5 +63,7 @@ echo
 cmd="./bin/runscala.sh $pwd/java-gradle/config/IsftServiceClient.scala http://localhost:8080/api-docs"
 rc=eval $cmd
 
+chmod 755 "$targetFolder/gradlew"
+
 echo "Finished with $rc"
 popd
